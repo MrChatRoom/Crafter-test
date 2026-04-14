@@ -1,20 +1,33 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js";
 
 export const world = {};
-export const size = 10;
+export const SIZE = 9;
 
-export function createWorld(scene, texture) {
+export function createWorld(scene, textures) {
   const geo = new THREE.BoxGeometry(1,1,1);
 
-  for (let x = 0; x < size; x++) {
-    for (let z = 0; z < size; z++) {
-      const mat = new THREE.MeshStandardMaterial({ map: texture });
-      const cube = new THREE.Mesh(geo, mat);
+  for (let x = 0; x < SIZE; x++) {
+    for (let z = 0; z < SIZE; z++) {
+      for (let y = 0; y < SIZE; y++) {
 
-      cube.position.set(x, 0, z);
-      scene.add(cube);
+        let mat;
 
-      world[`${x},0,${z}`] = cube;
+        // TOP LAYER = GRASS
+        if (y === SIZE - 1) {
+          mat = new THREE.MeshStandardMaterial({ map: textures.grassTop });
+        }
+
+        // SIDE / BELOW = DIRT
+        else {
+          mat = new THREE.MeshStandardMaterial({ map: textures.dirt });
+        }
+
+        const cube = new THREE.Mesh(geo, mat);
+        cube.position.set(x, y, z);
+
+        scene.add(cube);
+        world[`${x},${y},${z}`] = cube;
+      }
     }
   }
 }
