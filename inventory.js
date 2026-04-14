@@ -1,5 +1,5 @@
 export const inventory = [
-  { type: "dirt", count: 15 },
+  { type: "dirt", count: 0 },
   null,
   null,
   null,
@@ -12,11 +12,27 @@ export function changeSlot(i) {
   selectedSlot = i;
 }
 
+export function addBlock(type) {
+  for (let slot of inventory) {
+    if (slot && slot.type === type && slot.count < 15) {
+      slot.count++;
+      return;
+    }
+  }
+
+  for (let i = 0; i < inventory.length; i++) {
+    if (!inventory[i]) {
+      inventory[i] = { type, count: 1 };
+      return;
+    }
+  }
+}
+
 export function removeBlock() {
   const slot = inventory[selectedSlot];
   if (slot && slot.count > 0) {
     slot.count--;
-    if (slot.count === 0) inventory[selectedSlot] = null;
+    if (slot.count <= 0) inventory[selectedSlot] = null;
   }
 }
 
@@ -27,7 +43,6 @@ export function updateHUD() {
   inventory.forEach((slot, i) => {
     const div = document.createElement("div");
     div.className = "slot";
-
     if (i === selectedSlot) div.classList.add("selected");
 
     if (slot) {
