@@ -1,7 +1,6 @@
 body {
   margin: 0;
   overflow: hidden;
-  background: black;
 }
 
 #hud {
@@ -10,13 +9,15 @@ body {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  z-index: 10;
 }
 
 .slot {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border: 2px solid white;
+  background: rgba(0,0,0,0.4);
   position: relative;
 }
 
