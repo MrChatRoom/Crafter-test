@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js";
 
 export const world = {};
 export const size = 10;
@@ -8,7 +8,7 @@ export function createWorld(scene, texture) {
 
   for (let x = 0; x < size; x++) {
     for (let z = 0; z < size; z++) {
-      const mat = new THREE.MeshBasicMaterial({ map: texture });
+      const mat = new THREE.MeshStandardMaterial({ map: texture });
       const cube = new THREE.Mesh(geo, mat);
 
       cube.position.set(x, 0, z);
